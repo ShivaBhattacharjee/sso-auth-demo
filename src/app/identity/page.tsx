@@ -2,6 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import jwt from "jsonwebtoken";
+import { setCookie } from "cookies-next";
 
 const Page = () => {
     const router = useRouter();
@@ -19,6 +20,9 @@ const Page = () => {
             try {
                 jwt.decode(token);
                 router.push("/");
+                setCookie("token", token , {
+                    maxAge: 60 * 60 * 24 * 7, 
+                })
             } catch (e) {
                 console.error(e);
                 alert("Invalid Token");
