@@ -5,7 +5,7 @@ import { getCookie } from "cookies-next";
 import jwt from "jsonwebtoken";
 import { getUser } from "@/server/actions";
 import { useRouter } from "next/navigation";
-const page = () => {
+const Page = () => {
     const cookie = getCookie("token") || "";
     const router = useRouter();
     const [user, setUser] = React.useState({} as any); // Add type assertion here
@@ -47,4 +47,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;
