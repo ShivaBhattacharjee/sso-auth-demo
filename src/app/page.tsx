@@ -31,6 +31,7 @@ const page = () => {
         <div className=" flex justify-center items-center min-h-screen">
             {cookie ? (
                 <div className="flex flex-col gap-4 text-center">
+                    <Link href={"/logout"} className=" p-4 bg-red-500 rounded-md">Logout</Link>
                     <span className=" border-2 border-blue-600 p-3 rounded-md text-center w-72 font-semibold hover:bg-blue-600 duration-200">You are logged in</span>
                     <h1>Profile Information</h1>
                     <h1>username : {user?.username || "N/A"}</h1>
