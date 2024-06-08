@@ -3,7 +3,7 @@ import { deleteCookie, getCookie } from "cookies-next";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const page = () => {
+const Page = () => {
     const router = useRouter()
     useEffect(()=>{
         const cookie = getCookie("token") || "";
@@ -15,4 +15,4 @@ const page = () => {
     router.push("https://accounts.theshiva.xyz/logout?redirectUrl=https://demosso.theshiva.xyz");
 };
 
-export default page;
+export default Page;
