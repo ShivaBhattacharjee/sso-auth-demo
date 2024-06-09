@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 const page = () => {
-    redirect("https://accounts.theshiva.xyz/login?redirectUrl=https://demosso.theshiva.xyz/identity");
+    redirect("http://localhost:3000/login?redirectUrl=http://localhost:3001/identity");
 };
 
 export default page;
