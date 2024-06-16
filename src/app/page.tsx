@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getCookie } from "cookies-next";
 import jwt from "jsonwebtoken";
@@ -10,6 +10,7 @@ import axios from "axios";
 const Page = () => {
   const cookie = getCookie("token") || "";
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = React.useState({} as any); // Add type assertion here
   const getUserProfile = async () => {
     if (cookie) {
@@ -19,15 +20,20 @@ const Page = () => {
       }
       if (decodedToken && decodedToken.username) {
         try {
+          setLoading(true);
           const req = await axios.get(
             `https://accounts.theshiva.xyz/api/profile?username=${decodedToken.username}`
           );
           const user = req.data;
           setUser(user.user);
           console.log(user);
+          setLoading(false);
         } catch (e) {
           alert("Error getting user profile");
           console.log(e);
+          setLoading(false);
+        } finally {
+          setLoading(false);
         }
       }
     }
@@ -41,18 +47,24 @@ const Page = () => {
     <div className=" flex justify-center items-center min-h-screen">
       {cookie ? (
         <div className="flex flex-col gap-4 text-center">
-          <Link href={"/logout"} className=" p-4 bg-red-500 rounded-md">
-            Logout
-          </Link>
-          <span className=" border-2 border-blue-600 p-3 rounded-md text-center w-72 font-semibold hover:bg-blue-600 duration-200">
-            You are logged in
-          </span>
-          <h1>Profile Information</h1>
-          <h1>username : {user?.username || "N/A"}</h1>
-          <h1>Email : {user?.email || "N/A"}</h1>
-          <h1>
-            Verify Status : {user.isverified ? "Verified" : "Not verified"}
-          </h1>
+          {loading ? (
+            <p>Loading....</p>
+          ) : (
+            <>
+              <Link href={"/logout"} className=" p-4 bg-red-500 rounded-md">
+                Logout
+              </Link>
+              <span className=" border-2 border-blue-600 p-3 rounded-md text-center w-72 font-semibold hover:bg-blue-600 duration-200">
+                You are logged in
+              </span>
+              <h1>Profile Information</h1>
+              <h1>username : {user?.username || "N/A"}</h1>
+              <h1>Email : {user?.email || "N/A"}</h1>
+              <h1>
+                Verify Status : {user.isverified ? "Verified" : "Not verified"}
+              </h1>
+            </>
+          )}
         </div>
       ) : (
         <Link
