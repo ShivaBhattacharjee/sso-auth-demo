@@ -9,10 +9,10 @@ const Page = () => {
         const cookie = getCookie("token") || "";
     if(cookie){
         deleteCookie("token");
-        router.push("https://demosso.theshiva.xyz")
+        router.push(`${process.env.NEXT_PUBLIC_DOMAIN_URL}`)
     }
     },[])
-    router.push("https://accounts.theshiva.xyz/logout?redirectUrl=https://demosso.theshiva.xyz");
+    router.push(`https://accounts.theshiva.xyz/logout?redirectUrl=${process.env.NEXT_PUBLIC_DOMAIN_URL}`);
 };
 
 export default Page;
