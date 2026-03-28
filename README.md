@@ -1,6 +1,6 @@
 ## Installation
 
-```sh
+```bash
 git clone git@github.com:ShivaBhattacharjee/sso-auth-demo.git
 
 cd sso-auth-demo
